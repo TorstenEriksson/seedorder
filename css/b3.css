@@ -1,0 +1,289 @@
+/* CSS for Trädgårdsamatörerna.nu */
+/* Adapted from previous css files and own sources July-August 2011 by Torsten Eriksson */
+/* ------------------------------------- */
+/* --- Definitions for standard tags --- */
+
+* { /* universal selector */
+	margin:0;
+	padding:0;
+}
+
+body {
+	background-color: white;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight:normal;
+	line-height: 13px;
+	color: #535353;
+}
+
+h1 {
+	font-family: "Open Sans","Gill Sans MT", Verdana, Arial, Helvetica, sans-serif;
+	font-size: 22px;
+	line-height: 26px;
+	font-weight: bold;
+	color: #576B3D;
+	font-style:normal;
+	padding-bottom:26px;
+}
+
+h2 {
+	font-family: "Open Sans","Gill Sans MT", Verdana, Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	line-height: 20px;
+	font-weight: bold;
+	color: #535353;
+	font-style:italic;
+	padding-bottom:20px;
+}
+
+h3 {
+	font-family: "Open Sans","Gill Sans MT", Verdana, Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	line-height: 16px;
+	font-weight: bold;
+	color: #576B3D;
+	font-style:normal;
+	padding-bottom:16px;
+}
+
+p {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	line-height: 13px;
+	font-weight:normal;
+	color: #535353;
+	padding-bottom:10px;
+}
+
+a:link {
+	text-decoration: none;
+	color: #535353;
+}
+a:visited {
+	text-decoration: none;
+	color: #535353;
+}
+a:hover {
+	text-decoration: none;
+	color: #a40000;
+}
+a:active {
+	/* font-weight: normal; */
+	text-decoration: none;
+	color: #a40000;
+}
+
+ul {
+	list-style-position:inside;
+}
+/* ------------------------------------------ */
+/* --- paragraph, list and anchor classes --- */
+
+.fet {
+	font-weight: bold;
+}
+
+.intro_grn { /* green text */
+	font-size: 14px;
+	line-height: 16px;
+	color: #576B3D;
+}
+
+.intro_gra { /* grey text */
+	font-size: 14px;
+	line-height: 16px;
+	color: #535353;
+}
+
+.byline {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #373737;
+	font-style:normal;
+}
+.artnamn {
+	font-style:italic;
+}
+
+.error { /* error text in red */
+	font-size: 14px;
+	font-weight:bold;
+	line-height: 16px;
+	color: red;
+}
+
+.nyhetsdatum {
+	color: #999999;
+	font-weight: bold;
+	padding-right: 12px;
+}
+
+td .halvsida {
+	width:50%;
+}
+
+
+/* --------------------------- */
+/* --- div ids and classes --- */
+
+#sida {
+	width:760px;
+	text-align:center;
+	background-color:white;
+	margin-left:85px;
+}
+
+#sidhuvud {
+	text-align:left;
+	background-color:#e1eac7;
+	margin-top:15px;
+	border-left:1px solid #a7cf74;
+	border-right:1px solid #a7cf74;
+	border-top:1px solid #a7cf74;
+	padding-left:10px;
+}
+
+#meny {
+	text-align:center;
+	background-color:#e1eac7;
+	padding-top:10px;
+	padding-bottom:5px;
+	border-left:1px solid #a7cf74;
+	border-right:1px solid #a7cf74;
+	color: #576b3d;
+}
+
+#undermeny {
+	text-align:center;
+	background-color:white;
+	padding-top:5px;
+	padding-bottom:10px;
+	border-left:1px solid #a7cf74;
+	border-right:1px solid #a7cf74;
+	color: black;
+}
+
+#innehall {
+	text-align:left;
+	background-color:white;
+	padding-top:20px;
+}
+
+.vspalt {
+	width:760px;
+	float:left;
+	padding-left:50px;
+	padding-right:10px;
+	padding-bottom:10px;
+}
+
+.hspalt {
+	float:left;
+	width:202px;
+	padding:10px;
+}
+
+.fullsida {
+	width:698px;
+	padding-left:50px;
+	padding-right:10px;
+}
+
+.hbild {
+	float:right;
+	padding:10px;
+	border-left:1px dotted #cccccc;
+}
+
+.rndbild {
+	width:100%;
+}
+
+#sidfot {
+	text-align:center;
+	background-color:white;
+	height:40px;
+	padding-top:0px;
+	padding-bottom:10px;
+	margin-bottom:20px;
+	border-top:1px dotted #cccccc;
+	border-left:1px solid #a7cf74;
+	border-right:1px solid #a7cf74;
+	border-bottom:1px solid #a7cf74;
+}
+
+.nyheter {
+	width:200px;
+	background-color:#e1eac7;
+	padding-bottom:5px;
+	padding-top:5px;
+	margin-bottom:10px;
+}
+
+.with_divider {
+	border-top: 1px solid #576B3D;
+	padding-top:5px;
+}
+
+.inramad {
+	border: 1px solid #576B3D;
+	padding:10px;
+}
+
+.logo {
+	margin-bottom:20px;
+}
+
+/* -------------------------------- */
+/* --- div-specific definitions --- */
+
+#sidfot p {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #373737;
+	font-weight:normal;
+}
+#sidfot hr {
+	width:60%;
+}
+
+#undermeny a:link {
+	text-decoration: none;
+	color: black;
+}
+#undermeny a:visited {
+	text-decoration: none;
+	color: black;
+}
+#undermeny a:hover {
+	text-decoration: none;
+	color: #a40000;
+}
+#undermeny a:active {
+	/* font-weight: normal; */
+	text-decoration: none;
+	color: #a40000;
+}
+
+.nyheter p {
+	font-size: 11px;
+	color: #373737;
+	font-weight:bold;
+	font-style:normal;
+	padding-top:5px;
+	padding-bottom:5px;
+	padding-left:10px;
+}
+
+.linjesist {
+	border-bottom:1px solid #a7cf74;
+}
+
+.notable {
+	color:#a40000;
+	font-weight: bold;
+}

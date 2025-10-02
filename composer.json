@@ -1,0 +1,13 @@
+{
+  "name": "torsteneriksson/seedorder",
+  "description": "Form for ordering seed",
+  "license": "GPL-3.0-or-later",
+  "config": {
+    "platform": {
+      "php": "8.4"
+    }
+  },
+  "require": {
+    "phpmailer/phpmailer": "^6.11"
+  }
+}
