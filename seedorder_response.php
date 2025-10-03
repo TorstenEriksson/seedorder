@@ -1,14 +1,36 @@
 <?php
+
+    namespace sta;
+
+    use Twig\Environment;
+    use Twig\Loader\FilesystemLoader;
+
+    require __DIR__ . '/vendor/autoload.php';
+
     if ($_SERVER['REQUEST_METHOD'] != "POST") {
         die();
     }
     $input = $_POST;
-    $name = $input["Namn"];
-    $number = $input["Medlemsnummer"];
-    $seed1 = $input["Val_1"];
+    $last_val_col = 108;
+    $full_name = $input["Namn"];
+    $fname = explode(" ", $full_name);
+    $fname = $fname[0];
+    $member_nr = $input["Medlemsnummer"];
 
-    // Assemble input data into a string formatted according
-    // to the downstream requirements
+    $today = date("Ymd");
+    $path = realpath("../seedorders");
+    $filename = $path . "/fro" . $today . ".sod";
+    $seedorder = [];
+    $config = new Config();
+    $email = new Email($config);
+
+    // Setup twig
+    $loader = new FilesystemLoader(__DIR__ . '/templates');
+    $twig = new Environment($loader);
+
+    $page_title = $config->getSetting('ORG_NAME');
+
+    // Assemble input data into a string, formatted according to downstream requirements
     $msg = "Namn=" . $input["Namn"] .
         "&Gata=" . $input["Gata"] .
         "&Postnr=" . $input["Postnr"] .
@@ -18,48 +40,62 @@
         "&Medlemsnummer=" . $input["Medlemsnummer"] .
         "&Fyll_upp=" . $input["Fyll_upp"] .
         "&Auto_fyll=" . $input["Auto_fyll"];
-    for ($i = 1; $i <= 108; $i++) {
+    for ($i = 1; $i <= $last_val_col; $i++) {
         $msg .= "&Val+$i=" . $input["Val_$i"];
+        if ($input["Val_$i"]) {
+            $seedorder[] = $input["Val_$i"];
+        }
     }
     $msg = str_replace(' ', '+', $msg);
-    $msg = iconv('utf-8', 'iso-8859-1', $msg);
-    if ((!empty($name)) and (!empty($number)) and (!empty($seed1))) {
-        $today = date("Ymd");
-        $path = realpath("../seedorder");
-        $filename = $path . "/fro" . $today . ".sod";
+    if ($config->getSetting('CONVERT_TO_LATIN1')) {
+        $msg = iconv('utf-8', 'iso-8859-1', $msg); // *** Double check if this is necessary ***
+    }
+
+    // Save a seed order in today's file (outside webroot)
+    if (($full_name) && ($member_nr) && (count($seedorder) > 0)) {
         if (!$file = fopen($filename, "a")) {
-            die("Ett fel uppstod: Kunde inte öppna filen \"$filename\"");
+            die("Unable to open file \"$filename\"");
         }
         fwrite($file, $msg . "\n");
         fclose($file);
 
-        $scnt = 0;
-        $emsg = array();
-        $emsg[] = 'Vi har mottagit din beställning:';
-        foreach ($_POST as $key => $value) {
-            if (substr($key, 0, 4) == 'Val_' && empty($value) || $key == 'Skicka') {
-                continue;
-            } elseif (substr($key, 0, 4) == 'Val_') {
-                $key = 'Frö';
-                $scnt++;
-            }
-            $emsg[] = $key . ' = ' . $value;
+        // Send an email response
+        $my_template = 'seedorder_confirmation_email.html.twig';
+        if ($input["Epost"]) {
+            // Setup template data for this email
+            $template_data = [
+                'page_title' => $page_title,
+                'name' => $fname,
+                'seeds' => $seedorder,
+                'total' => count($seedorder),
+                'fee' => $config->getSetting('ORG_FEE'),
+            ];
+            // Render the html
+            $body = $twig->render($my_template, $template_data);
+            $email->send( // Ignore any send errors
+                [$config->getSetting('ORG_SENDER_EMAIL'), $config->getSetting('ORG_SENDER_NAME')],
+                $config->getSetting('ORG_CONFIRMATION_SUBJECT'),
+                $body,
+                [[$input["Epost"], $full_name]],
+            );
         }
-        $emsg[] = "Sammanlagt $scnt fröer beställda";
-        $msg = implode("\n", $emsg);
+
         // Show a response
-        $tmp = explode(' ', $name);
-        $svarstext = 'Vid ordinarie beställning: betalning INNAN första fördelning, exp avgift 80 kronor.
-Vid efterbeställning: inbetalningskort kommer med fröerna.
-Betalning till STA Fröförmedling bankgiro 418-4446.
-För betalning från andra länder är vårt BIC/IBAN följande
-HANDSESS/SE 74 6000 0000 0005 6008 8752.
+        $my_template = 'seedorder_confirmation.html.twig';
+        $template_data = [
+            'page_title' => $page_title,
+            'logo_image' => $config->getSetting('ORG_LOGO_IMG'),
+            'header' => $config->getSetting('ORG_HEADER'),
+            'fname' => $fname,
+            'seeds' => $seedorder,
+            'total' => count($seedorder),
+            'fee' => $config->getSetting('ORG_FEE'),
+            'org_url' => $config->getSetting('ORG_URL'),
+            'org_name' => $config->getSetting('ORG_NAME'),
+        ];
+        echo $twig->render($my_template, $template_data);
 
-Tack för din beställning';
-        echo "<p class=\"intro_gra\">Tack f&ouml;r din best&auml;llning, " . htmlentities($tmp[0]) . "</p>";
-        echo '<p>' . nl2br(htmlentities($svarstext, ENT_COMPAT, 'iso-8859-1')) . '</p>';
-        echo '<h2><a href="http://tradgardsamatorerna.nu">Tillbaka till Tr&auml;dg&aring;rdsamat&ouml;rernas webbplats</a></h2>';
-
+        /*
         // Send an email
         $msg .= "\n" . $svarstext;
         if (!empty($input["Epost"])) {
@@ -77,6 +113,8 @@ Tack för din beställning';
                 $mail->Send();
             }
         }
+        */
     } else {
-        echo "<p class=\"intro_gra\">Fel uppstod vid best&auml;llning! Skicka g&auml;rna in best&auml;llningen p&aring; annat s&auml;tt.</p>";
+        die ("<p class=\"intro_gra\">Fel uppstod vid beställning! Skicka gärna in beställningen på annat sätt.</p>");
     }
+

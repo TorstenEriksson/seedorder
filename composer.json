@@ -1,6 +1,6 @@
 {
   "name": "torsteneriksson/seedorder",
-  "description": "Form for ordering seed",
+  "description": "For ordering seed",
   "license": "GPL-3.0-or-later",
   "config": {
     "platform": {
@@ -8,6 +8,9 @@
     }
   },
   "require": {
-    "phpmailer/phpmailer": "^6.11"
-  }
+    "phpmailer/phpmailer": "^6.11",
+    "ext-iconv": "*",
+    "twig/twig": "^3.21"
+  },
+  "autoload": {"psr-4": {"sta\\": "src/"}}
 }
