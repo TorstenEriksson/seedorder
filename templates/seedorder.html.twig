@@ -65,20 +65,20 @@
                         <td colspan="2"><span class="fet">Uppgifter om best&auml;llaren</span></td>
                     </tr>
                     <tr>
-                        <td width="50">Medlemsnr:</td>
-                        <td><input type="text" name="Medlemsnummer" size="5"></td>
+                        <td class="kvartsida"><label for="Medlemsnummer">Medlemsnr</label>:</td>
+                        <td><input type="text" name="Medlemsnummer" id="Medlemsnummer" size="5"></td>
                     </tr>
                     <tr>
-                        <td width="50">Namn:</td>
-                        <td><input type="text" name="Namn" size="45"></td>
+                        <td class="kvartsida"><label for="Namn">Namn</label>:</td>
+                        <td><input type="text" name="Namn" id="Namn" size="45"></td>
                     </tr>
                     <tr>
-                        <td width="50">Telefon:</td>
-                        <td><input type="text" name="Telefon" size="15"></td>
+                        <td class="kvartsida"><label for="Telefon">Telefon</label>:</td>
+                        <td><input type="text" name="Telefon" id="Telefon" size="15"></td>
                     </tr>
                     <tr>
-                        <td width="50">Epost: </td>
-                        <td><input type="text" name="Epost" size="45"></td>
+                        <td class="kvartsida"><label for="Epost">Epost</label>: </td>
+                        <td><input type="text" name="Epost" id="Epost" size="45"></td>
                     </tr>
                     <tr><td colspan="2">&nbsp;</td></tr>
                     <tr>
@@ -87,39 +87,39 @@
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="2"><input name="alt_addr" type="CheckBox" onClick="javascript:if(this.checked==true){document.getElementById('addressgroup').style.display=''}else{document.getElementById('addressgroup').style.display='none'};" name="Annan_adress" size="25"> Annan adress, kryssa i rutan och ange</td>
+                        <td colspan="2"><input name="alt_addr" id="alt_addr" type="CheckBox" onClick="javascript:if(this.checked==true){document.getElementById('addressgroup').style.display=''}else{document.getElementById('addressgroup').style.display='none'};"> <label for="alt_addr">Annan adress, kryssa i rutan och ange</label></td>
                     </tr>
                 </table>
                 <div id="addressgroup" style="display:none;">
-                    <table border="0" cellpadding="0" cellspacing="2" width="500">
+                    <table>
                         <tr>
-                            <td width="50">Gata:</td>
-                            <td><input type="text" name="Gata" size="45"></td>
+                            <td class="kvartsida"><label for="Gata">Gata</label>:</td>
+                            <td><input type="text" name="Gata" id="Gata" size="45"></td>
                         </tr>
                         <tr>
-                            <td width="50">Postnr:</td>
-                            <td><input type="text" name="Postnr" size="6"></td>
+                            <td class="kvartsida"><label for="Postnr">Postnr</label>:</td>
+                            <td><input type="text" name="Postnr" id="Postnr" size="6"></td>
                         </tr>
                         <tr>
-                            <td width="50">Ort:</td>
-                            <td><input type="text" name="Ort" size="45"></td>
+                            <td class="kvartsida"><label for="Ort">Ort</label>:</td>
+                            <td><input type="text" name="Ort" id="Ort" size="45"></td>
                         </tr>
                     </table>
                 </div>
                 <table>
                     <tr><td>&nbsp;</td></tr>
                     <tr>
-                        <td><input type="CheckBox" name="Auto_fyll" value="ja"> Jag &ouml;nskar automatisk p&aring;fyllning till s&aring; m&aring;nga jag &auml;r ber&auml;ttigad till</td>
+                        <td><input type="CheckBox" name="Auto_fyll" id="Auto_fyll" value="ja"> <label for="Auto_fyll">Jag &ouml;nskar automatisk p&aring;fyllning till s&aring; m&aring;nga jag &auml;r ber&auml;ttigad till</label></td>
                     </tr>
                 </table>
 
-                <table border="0" cellpadding="0" cellspacing="2" width="500">
+                <table>
                     <tr>
-                        <td width="100">Jag vill max ha:<br><span class="notable">OBS!</span> Endast vid efterbest.</td>
-                        <td><input type="text" name="Fyll_upp" size="5"> st fr&ouml;p&aring;sar (Ange med siffror 1-100)</td>
+                        <td class="kvartsida">Jag vill max ha:<br><span class="notable">OBS!</span> Endast vid efterbest.</td>
+                        <td><input type="text" name="Fyll_upp" id="Fyll_upp" size="5"> st <label for="Fyll_upp">fr&ouml;p&aring;sar</label> (Ange med siffror 1-100)</td>
                     </tr>
                 </table>
-                <table border="0" cellpadding="0" cellspacing="2" width="700">
+                <table>
                     <tr><td>&nbsp;</td></tr>
                     <tr>
                         <td>
@@ -130,146 +130,65 @@
                     <tr>
                         <td>
                             v Börja här<br>
-                            <input type="text" name="Val_1" size="2">
-                            <input type="text" name="Val_2" size="2">
-                            <input type="text" name="Val_3" size="2">
-                            <input type="text" name="Val_4" size="2">
-                            <input type="text" name="Val_5" size="2">
-                            <input type="text" name="Val_6" size="2">
-                            <input type="text" name="Val_7" size="2">
-                            <input type="text" name="Val_8" size="2">
-                            <input type="text" name="Val_9" size="2">
-                            <input type="text" name="Val_10" size="2">
-                            <input type="text" name="Val_11" size="2">
-                            <input type="text" name="Val_12" size="2">&nbsp;&nbsp;12
+                            {% for i in 1..12 %}
+                                <input type="text" name="Val_{{ i }}" size="2">
+                            {% endfor %}&nbsp;&nbsp;12
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <input type="text" name="Val_13" size="2">
-                            <input type="text" name="Val_14" size="2">
-                            <input type="text" name="Val_15" size="2">
-                            <input type="text" name="Val_16" size="2">
-                            <input type="text" name="Val_17" size="2">
-                            <input type="text" name="Val_18" size="2">
-                            <input type="text" name="Val_19" size="2">
-                            <input type="text" name="Val_20" size="2">
-                            <input type="text" name="Val_21" size="2">
-                            <input type="text" name="Val_22" size="2">
-                            <input type="text" name="Val_23" size="2">
-                            <input type="text" name="Val_24" size="2">&nbsp;&nbsp;24
+                            {% for i in 13..24 %}
+                                <input type="text" name="Val_{{ i }}" size="2">
+                            {% endfor %}&nbsp;&nbsp;24
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <input type="text" name="Val_25" size="2">
-                            <input type="text" name="Val_26" size="2">
-                            <input type="text" name="Val_27" size="2">
-                            <input type="text" name="Val_28" size="2">
-                            <input type="text" name="Val_29" size="2">
-                            <input type="text" name="Val_30" size="2">
-                            <input type="text" name="Val_31" size="2">
-                            <input type="text" name="Val_32" size="2">
-                            <input type="text" name="Val_33" size="2">
-                            <input type="text" name="Val_34" size="2">
-                            <input type="text" name="Val_35" size="2">
-                            <input type="text" name="Val_36" size="2">&nbsp;&nbsp;36
+                            {% for i in 25..36 %}
+                                <input type="text" name="Val_{{ i }}" size="2">
+                            {% endfor %}&nbsp;&nbsp;36
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <input type="text" name="Val_37" size="2">
-                            <input type="text" name="Val_38" size="2">
-                            <input type="text" name="Val_39" size="2">
-                            <input type="text" name="Val_40" size="2">
-                            <input type="text" name="Val_41" size="2">
-                            <input type="text" name="Val_42" size="2">
-                            <input type="text" name="Val_43" size="2">
-                            <input type="text" name="Val_44" size="2">
-                            <input type="text" name="Val_45" size="2">
-                            <input type="text" name="Val_46" size="2">
-                            <input type="text" name="Val_47" size="2">
-                            <input type="text" name="Val_48" size="2">&nbsp;&nbsp;48
+                            {% for i in 37..48 %}
+                                <input type="text" name="Val_{{ i }}" size="2">
+                            {% endfor %}&nbsp;&nbsp;48
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <input type="text" name="Val_49" size="2">
-                            <input type="text" name="Val_50" size="2">
-                            <input type="text" name="Val_51" size="2">
-                            <input type="text" name="Val_52" size="2">
-                            <input type="text" name="Val_53" size="2">
-                            <input type="text" name="Val_54" size="2">
-                            <input type="text" name="Val_55" size="2">
-                            <input type="text" name="Val_56" size="2">
-                            <input type="text" name="Val_57" size="2">
-                            <input type="text" name="Val_58" size="2">
-                            <input type="text" name="Val_59" size="2">
-                            <input type="text" name="Val_60" size="2">&nbsp;&nbsp;60
+                            {% for i in 49..60 %}
+                                <input type="text" name="Val_{{ i }}" size="2">
+                            {% endfor %}&nbsp;&nbsp;60
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <input type="text" name="Val_61" size="2">
-                            <input type="text" name="Val_62" size="2">
-                            <input type="text" name="Val_63" size="2">
-                            <input type="text" name="Val_64" size="2">
-                            <input type="text" name="Val_65" size="2">
-                            <input type="text" name="Val_66" size="2">
-                            <input type="text" name="Val_67" size="2">
-                            <input type="text" name="Val_68" size="2">
-                            <input type="text" name="Val_69" size="2">
-                            <input type="text" name="Val_70" size="2">
-                            <input type="text" name="Val_71" size="2">
-                            <input type="text" name="Val_72" size="2">&nbsp;&nbsp;72
+                            {% for i in 61..72 %}
+                                <input type="text" name="Val_{{ i }}" size="2">
+                            {% endfor %}&nbsp;&nbsp;72
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <input type="text" name="Val_73" size="2">
-                            <input type="text" name="Val_74" size="2">
-                            <input type="text" name="Val_75" size="2">
-                            <input type="text" name="Val_76" size="2">
-                            <input type="text" name="Val_77" size="2">
-                            <input type="text" name="Val_78" size="2">
-                            <input type="text" name="Val_79" size="2">
-                            <input type="text" name="Val_80" size="2">
-                            <input type="text" name="Val_81" size="2">
-                            <input type="text" name="Val_82" size="2">
-                            <input type="text" name="Val_83" size="2">
-                            <input type="text" name="Val_84" size="2">&nbsp;&nbsp;84
+                            {% for i in 73..84 %}
+                                <input type="text" name="Val_{{ i }}" size="2">
+                            {% endfor %}&nbsp;&nbsp;84
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <input type="text" name="Val_85" size="2">
-                            <input type="text" name="Val_86" size="2">
-                            <input type="text" name="Val_87" size="2">
-                            <input type="text" name="Val_88" size="2">
-                            <input type="text" name="Val_89" size="2">
-                            <input type="text" name="Val_90" size="2">
-                            <input type="text" name="Val_91" size="2">
-                            <input type="text" name="Val_92" size="2">
-                            <input type="text" name="Val_93" size="2">
-                            <input type="text" name="Val_94" size="2">
-                            <input type="text" name="Val_95" size="2">
-                            <input type="text" name="Val_96" size="2">&nbsp;&nbsp;96
+                            {% for i in 85..96 %}
+                                <input type="text" name="Val_{{ i }}" size="2">
+                            {% endfor %}&nbsp;&nbsp;96
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <input type="text" name="Val_97" size="2">
-                            <input type="text" name="Val_98" size="2">
-                            <input type="text" name="Val_99" size="2">
-                            <input type="text" name="Val_100" size="2">
-                            <input type="text" name="Val_101" size="2">
-                            <input type="text" name="Val_102" size="2">
-                            <input type="text" name="Val_103" size="2">
-                            <input type="text" name="Val_104" size="2">
-                            <input type="text" name="Val_105" size="2">
-                            <input type="text" name="Val_106" size="2">
-                            <input type="text" name="Val_107" size="2">
-                            <input type="text" name="Val_108" size="2">108
+                            {% for i in 97..108 %}
+                                <input type="text" name="Val_{{ i }}" size="2">
+                            {% endfor %}&nbsp;&nbsp;108
                         </td>
                     </tr>
                     <tr><td>&nbsp;</td></tr>
