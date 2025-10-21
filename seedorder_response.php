@@ -11,6 +11,9 @@
         die();
     }
     $input = $_POST;
+    $config = new Config();
+    $email = new Email($config);
+
     $last_val_col = 108;
     $full_name = $input["Namn"];
     $fname = explode(" ", $full_name);
@@ -18,11 +21,9 @@
     $member_nr = $input["Medlemsnummer"];
 
     $today = date("Ymd");
-    $path = realpath("../seedorders");
+    $path = realpath("../" . $config->getSetting('ORG_ORDERS_DIR'));
     $filename = $path . "/fro" . $today . ".sod";
     $seedorder = [];
-    $config = new Config();
-    $email = new Email($config);
 
     // Setup twig
     $loader = new FilesystemLoader(__DIR__ . '/templates');
@@ -52,6 +53,9 @@
     }
 
     // Save a seed order in today's file (outside webroot)
+    if (!file_exists($path)) {
+        mkdir($path);
+    }
     if (($full_name) && ($member_nr) && (count($seedorder) > 0)) {
         if (!$file = fopen($filename, "a")) {
             die("Unable to open file \"$filename\"");
@@ -95,26 +99,8 @@
         ];
         echo $twig->render($my_template, $template_data);
 
-        /*
-        // Send an email
-        $msg .= "\n" . $svarstext;
-        if (!empty($input["Epost"])) {
-            $email_address = filter_var($input["Epost"], FILTER_VALIDATE_EMAIL);
-            if ($email_address) {
-                include_once('class.phpmailer.php');
-                $mail = new PHPMailer();
-                $mail->IsMail(); // telling the class to use PHP mail transport
-                $mail->IsHTML(FALSE);
-                $mail->CharSet = 'iso-8859-1';
-                $mail->SetFrom('fro@tradgardsamatorerna.nu', 'Trädgårdsamatörernas fröförmedling'); // Set sender
-                $mail->Subject = 'Bekräftelse på fröbeställning';
-                $mail->Body = $msg;
-                $mail->AddAddress($email_address, "");
-                $mail->Send();
-            }
-        }
-        */
-    } else {
+    }
+    else {
         die ("<p class=\"intro_gra\">Fel uppstod vid beställning! Skicka gärna in beställningen på annat sätt.</p>");
     }
 
