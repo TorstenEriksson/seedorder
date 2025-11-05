@@ -58,6 +58,9 @@
             <!-- vänsterspalten -->
             <h2>{{ header }}</h2>
             <h3>Endast f&ouml;r medlemmar</h3>
+            {% if ordering == 0 %}
+                <p class="error">Det går inte att beställa nu! Fröbeställningen är öppen från {{ start_date }} till och med {{ end_date }}.</p>
+            {%  endif %}
             <form action="seedorder_response.php" method="POST" onsubmit="return validate(this);">
                 <table>
                     <tr><td colspan="2">&nbsp;</td></tr>
