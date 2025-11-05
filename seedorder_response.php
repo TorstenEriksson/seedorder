@@ -19,6 +19,11 @@
     $fname = explode(" ", $full_name);
     $fname = $fname[0];
     $member_nr = $input["Medlemsnummer"];
+    $phone = $input["Telefon"];
+    $email_address = $input["Epost"];
+    $address = $input["Gata"] . ' ' . $input["Postnr"] . ' ' . $input["Ort"];
+    $auto_fill = ($input["Auto_fyll"] == 'ja') ? : 'nej';
+    $fill_up = ($input["Fyll_upp"]) ? : '';
 
     $today = date("Ymd");
     $path = realpath("../" . $config->getSetting('ORG_ORDERS_DIR'));
@@ -70,8 +75,13 @@
             $template_data = [
                 'page_title' => $page_title,
                 'name' => $fname,
+                'phone' => $phone,
+                'email' => $email_address,
+                'address' => $address,
                 'seeds' => $seedorder,
                 'total' => count($seedorder),
+                'auto_fill' => $auto_fill,
+                'fill_up' => $fill_up,
                 'fee' => $config->getSetting('ORG_FEE'),
             ];
             // Render the html

@@ -32,19 +32,17 @@
             $use_smtp = (bool)$this->config->getSetting('ORG_USE_SMTP');
             try {
                 // Email service settings
-                //$mail->SMTPDebug = SMTP::DEBUG_SERVER;            // Enable verbose debug output *** for testing only ***
                 if ($use_smtp) {
                     $mail->isSMTP();                                    // Send using SMTP
                     $mail->Host       = $this->config->getSetting('MY_SMTP_HOSTNAME'); // Set the SMTP server to send through
                     $mail->SMTPAuth   = true;                           // Enable SMTP authentication
                     $mail->Username   = $this->config->getSetting('MY_SMTP_USER'); // SMTP username
                     $mail->Password   = $this->config->getSetting('MY_SMTP_PASSWD'); // SMTP password
-                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-                    $mail->Port       = 587;                            // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
-                    $mail->setFrom($this->config->getSetting('MY_SMTP_FROM'), $from[1]); // Set sender
-                    $mail->addReplyTo($from[0]); // Set replyto
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+                    $mail->Port       = 465;
+                    $mail->SetFrom($from[0], $from[1]); // Set sender
                 } else {
-                    $mail->IsMail();                                    // Send using PHP mail transport
+                    $mail->IsMail(); // Send using PHP mail transport
                     $mail->SetFrom($from[0], $from[1]); // Set sender
                 }
                 // Setup mail

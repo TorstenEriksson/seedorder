@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ page_title }}</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link href="css/b3.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<div id="sida">
+    <!-- SIDANS INNEHÅLL -->
+    <div id="innehall">
+        <div class="vspalt">
+            <div class="logo">
+                <a href="/index.php"><img src="{{ logo_image }}" alt="föreningens logga" width="90" height="79"></a>
+            </div>
+            <!-- vänsterspalten -->
+            <h2>{{ header }}</h2>
+            <p>Hej {{ name }}!</p>
+            <p>Vi har mottagit din beställning:<br>
+                {% for seed in seeds %}
+                    Frö = {{ seed }}<br>
+                {% endfor %}
+            </p>
+            <p>Sammanlagt {{ total }} fröer beställda</p>
+            <p>Vid ordinarie beställning: betalning INNAN första fördelning, exp avgift {{ fee }} kronor.<br>
+                Betalning till STA-Fröförmedling bankgiro 418-4446<br>
+                Betalning från utlandet: SEPA/EU-betalning till BIC: HANDSESS, IBAN: SE74 6000 0000 0005 6008 8752.<br>
+                Kontots innehavare är STA Fröförmedling.<br>
+                Vid efterbeställning: inbetalningskort kommer med fröerna.</p>
+            <p>Tack för din beställning!</p>
+            <p>Vi har också skickat dessa uppgifter till din e-postadress.</p>
+
+            <form action="{{ org_url }}" method="post">
+                <p><input type="submit" value=" {{ org_name }} "></p>
+            </form>
+        </div>
+    </div>
+</div> <!-- sidans slut -->
+</body>
+</html>
