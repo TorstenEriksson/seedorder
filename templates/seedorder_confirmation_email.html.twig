@@ -7,6 +7,9 @@
 </head>
 <body>
     <p><b>Hej {{ name }}!</b></p>
+    {% if ordering == 0 %}
+        <p>OBS! Fröbeställningen är inte öppen nu. Din beställning har inte sparats. Meddelandet nedan är bara för test.</p>
+    {% endif %}
     <p>Vi har mottagit din beställning:<br>
         {% for seed in seeds %}
             Frö = {{ seed }}<br>

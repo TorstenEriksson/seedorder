@@ -69,6 +69,7 @@
         fclose($file);
 
         // Send an email response
+        $today = date("Y-m-d");
         $my_template = 'seedorder_confirmation_email.html.twig';
         if ($input["Epost"]) {
             // Setup template data for this email
@@ -83,6 +84,7 @@
                 'auto_fill' => $auto_fill,
                 'fill_up' => $fill_up,
                 'fee' => $config->getSetting('ORG_FEE'),
+                'ordering' => ($today >= $config->getSetting('ORG_ORDERING_START') && $today <= $config->getSetting('ORG_ORDERING_END')) ? 1 : 0,
             ];
             // Render the html
             $body = $twig->render($my_template, $template_data);
@@ -106,6 +108,7 @@
             'fee' => $config->getSetting('ORG_FEE'),
             'org_url' => $config->getSetting('ORG_URL'),
             'org_name' => $config->getSetting('ORG_NAME'),
+            'ordering' => ($today >= $config->getSetting('ORG_ORDERING_START') && $today <= $config->getSetting('ORG_ORDERING_END')) ? 1 : 0,
         ];
         echo $twig->render($my_template, $template_data);
 

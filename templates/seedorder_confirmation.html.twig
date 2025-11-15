@@ -19,6 +19,9 @@
             <!-- vänsterspalten -->
             <h2>{{ header }}</h2>
             <p>Hej {{ name }}!</p>
+            {% if ordering == 0 %}
+                <p class="error">OBS! Fröbeställningen är inte öppen nu. Din beställning har inte sparats.</p>
+            {% else %}
             <p>Vi har mottagit din beställning:<br>
                 {% for seed in seeds %}
                     Frö = {{ seed }}<br>
@@ -32,6 +35,7 @@
                 Vid efterbeställning: inbetalningskort kommer med fröerna.</p>
             <p>Tack för din beställning!</p>
             <p>Vi har också skickat dessa uppgifter till din e-postadress.</p>
+            {% endif %}
 
             <form action="{{ org_url }}" method="post">
                 <p><input type="submit" value=" {{ org_name }} "></p>

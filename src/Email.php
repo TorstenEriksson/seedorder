@@ -76,8 +76,10 @@
                 }
             }
             catch (Exception $e) {
+                $to_whom = implode(';', $to);
+                $this->logEmailError($to_whom, $mail->ErrorInfo); // Mailer Error: {$mail->ErrorInfo}";
                 // Is this a good idea?
-                return FALSE; // Mailer Error: {$mail->ErrorInfo}";
+                return FALSE;
             }
             return FALSE;
         }
@@ -106,6 +108,22 @@
         private function separate(string $email): array
         {
             return preg_split(self::DIVIDING_PATTERN , $email, -1, PREG_SPLIT_NO_EMPTY);
+        }
+
+        /**
+         * Save a log message if email was not sent
+         */
+        private function logEmailError(string $email, string $info): void
+        {
+            $path = realpath("../" . $this->config->getSetting('ORG_EMAIL_LOG_DIR'));
+            if (!file_exists($path)) {
+                mkdir($path);
+            }
+            $filename = $path . date('Y-m-d') . ".log";
+            if ($file = fopen($filename, "a")) {
+                fwrite($file, "$email: $info\n");
+                fclose($file);
+            }
         }
 
     }
