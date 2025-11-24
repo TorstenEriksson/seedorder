@@ -36,7 +36,7 @@ Config parameters are picked up from a config file immediately outside of webroo
 It is read with the PHP function parse_ini_file(), and contains the following (four sections):
 
 [email]
-ORG_USE_SMTP = Set to 1 if Phpmailer should use SMTP for sending emails 
+ORG_USE_SMTP = Set to 1 if Phpmailer should use SMTP for sending emails
 MY_SMTP_HOSTNAME = SMTP hostname url
 MY_SMTP_USER = SMTP user for authentication (SSL, port 465)
 MY_SMTP_PASSWD = SMTP user password
