@@ -119,7 +119,7 @@
             if (!file_exists($path)) {
                 mkdir($path);
             }
-            $filename = $path . date('Y-m-d') . ".log";
+            $filename = $path . '/' . date('Y-m-d') . ".log";
             if ($file = fopen($filename, "a")) {
                 fwrite($file, "$email: $info\n");
                 fclose($file);
